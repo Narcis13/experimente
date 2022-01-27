@@ -28,7 +28,7 @@ function parse(s){
     idx++
     //console.log(c)
    }
-    //console.log('identificatori',identifiers)
+    console.log('identificatori',identifiers)
     return identifiers
 }
 
@@ -41,7 +41,7 @@ function replaceAtWith(original,index,len,newtext){
 }
 
 window.onload = function() {
-        console.log('loading...')
+        //console.log('loading...')
         //logic
         let sloturi= [].slice.call(document.getElementsByClassName('loop'))
         sloturi.map(slot=>{
@@ -51,10 +51,17 @@ window.onload = function() {
                 if(data[dataslot]){
                     let data_slot=data[dataslot]
                     let slot_html=slot.outerHTML
+                    let new_slot_html=""
                     let identifiers=parse(slot_html)
-                    let replaceWith=data_slot[identifiers[0].value]
-                    slot.outerHTML=replaceAtWith(slot_html,identifiers[0].start,identifiers[0].nrchars,replaceWith)  
-                    console.log('Am cuplat template ',slot_html,' cu ',data_slot)
+                    let _identifiers=parse(slot_html)
+                    for(var i=0;i<identifiers.length;i++){
+                        //console.log(_identifiers.length)
+                        let replaceWith=data_slot[identifiers[i].value]
+                        slot_html=replaceAtWith(slot_html,_identifiers[0].start,_identifiers[0].nrchars,replaceWith) 
+                        _identifiers=parse(slot_html)
+                    }
+                    slot.outerHTML=slot_html
+                   // console.log('Am cuplat template ',slot_html,' cu ',data_slot)
                 }
             }
         })

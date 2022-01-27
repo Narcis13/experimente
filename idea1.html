@@ -8,15 +8,15 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h3 class="loop primary-color" id="data-slot1">{titlu}</h3>
-    <ul class="loop {}">
+    <h3 class="loop {classes}" id="data-slot1">{titlu}{sufix}</h3>
+    <ul class="loop">
         <li>Narcis</li>
         <li>Mihai</li>
         <li>Ionel</li>
     </ul>
     <script>
         var data={
-            slot1:{titlu:'Buna idee...',},
+            slot1:{classes:'primary-color',titlu:'Buna idee...',sufix:'!!!'},
             slot2:[]
         }
     </script>
