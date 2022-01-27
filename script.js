@@ -1,4 +1,44 @@
 
+function parse(s){
+   let idx=0
+   let identifiers=[]
+   let token={start:0,nrchars:0}
+   let nrchars=0
+   let intoken=false
+   while(idx<s.length){
+    let c = s.charAt(idx)
+
+    if(c=='{'){
+     token.start=idx+1
+     intoken=true
+    }
+    if (intoken){
+        nrchars++
+
+
+    }
+    if(c=='}'){
+      token.nrchars=nrchars-2
+      token.value=s.substr(token.start,nrchars-2)
+      identifiers.push(token)
+      token={start:0,nrchars:0}
+      intoken=false
+      nrchars=0
+    }
+    idx++
+    //console.log(c)
+   }
+    //console.log('identificatori',identifiers)
+    return identifiers
+}
+
+function replaceAtWith(original,index,len,newtext){
+    var first_part= original.substr(0,index-1)
+    var rest=original.substr(index+len+1,original.length-index-len-1)
+   // console.log('first_part',first_part+newtext+rest)
+   return first_part+newtext+rest
+
+}
 
 window.onload = function() {
         console.log('loading...')
@@ -11,6 +51,9 @@ window.onload = function() {
                 if(data[dataslot]){
                     let data_slot=data[dataslot]
                     let slot_html=slot.outerHTML
+                    let identifiers=parse(slot_html)
+                    let replaceWith=data_slot[identifiers[0].value]
+                    slot.outerHTML=replaceAtWith(slot_html,identifiers[0].start,identifiers[0].nrchars,replaceWith)  
                     console.log('Am cuplat template ',slot_html,' cu ',data_slot)
                 }
             }
