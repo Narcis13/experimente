@@ -1,4 +1,4 @@
-
+// si omologul lui v-if .... sa nu uitam
 function parse(s){
    let idx=0
    let identifiers=[]
@@ -28,7 +28,7 @@ function parse(s){
     idx++
     //console.log(c)
    }
-    console.log('identificatori',identifiers)
+   // console.log('identificatori',identifiers)
     return identifiers
 }
 
@@ -40,8 +40,25 @@ function replaceAtWith(original,index,len,newtext){
 
 }
 
+function interpolate(dataForSlot,html){
+    let data_slot=dataForSlot
+    let slot_html=html
+    
+    let identifiers=parse(slot_html)
+    let _identifiers=parse(slot_html)
+    for(var i=0;i<identifiers.length;i++){
+        //console.log(_identifiers.length)
+        let replaceWith=data_slot[identifiers[i].value]
+        slot_html=replaceAtWith(slot_html,_identifiers[0].start,_identifiers[0].nrchars,replaceWith) 
+        _identifiers=parse(slot_html)
+    }
+    return slot_html
+}
+
 window.onload = function() {
-        //console.log('loading...')
+        let request=  document.location.search.split('=')
+        if (request.length>0) request[0]=request[0].substring(1)
+        console.log('loading...',request)
         //logic
         let sloturi= [].slice.call(document.getElementsByClassName('loop'))
         sloturi.map(slot=>{
@@ -49,22 +66,23 @@ window.onload = function() {
             if(slotid.substr(0,4)=='data'){
                 let dataslot=slotid.split('-')[1]
                 if(data[dataslot]){
-                    let data_slot=data[dataslot]
-                    let slot_html=slot.outerHTML
-                    let new_slot_html=""
-                    let identifiers=parse(slot_html)
-                    let _identifiers=parse(slot_html)
-                    for(var i=0;i<identifiers.length;i++){
-                        //console.log(_identifiers.length)
-                        let replaceWith=data_slot[identifiers[i].value]
-                        slot_html=replaceAtWith(slot_html,_identifiers[0].start,_identifiers[0].nrchars,replaceWith) 
-                        _identifiers=parse(slot_html)
+                    if(Array.isArray(data[dataslot])){
+                       // console.log('Avem de a face cu un array')
+                        let repeated_html=""
+                        data[dataslot].map(item=>{
+                            repeated_html+=interpolate(item,slot.outerHTML)
+                        })
+                        slot.outerHTML=repeated_html
                     }
-                    slot.outerHTML=slot_html
+                    else
+                    {
+                        slot.outerHTML=interpolate(data[dataslot],slot.outerHTML)
+                    }
+                   
                    // console.log('Am cuplat template ',slot_html,' cu ',data_slot)
                 }
             }
         })
-        console.log('Experimenete.....',data,sloturi)
+      //  console.log('Experimenete.....',data,sloturi)
   };
 

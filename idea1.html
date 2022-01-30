@@ -10,16 +10,15 @@
 <body>
     <h3 class="loop {classes}" id="data-slot1">{titlu}{sufix}</h3>
     <ul class="loop">
-        <li>Narcis</li>
-        <li>Mihai</li>
-        <li>Ionel</li>
+        <li class="loop" id="data-slot2">{nume}<span>!</span></li>
+        <ul class="loop" id="data-slot3">
+            <li>Mihai</li>
+            <li>Ionel</li>
+        </ul>
+
     </ul>
-    <script>
-        var data={
-            slot1:{classes:'primary-color',titlu:'Buna idee...',sufix:'!!!'},
-            slot2:[]
-        }
-    </script>
+
+    <script src="data.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
