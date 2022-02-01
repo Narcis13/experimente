@@ -83,6 +83,13 @@ window.onload = function() {
                 }
             }
         })
+        let p = document.getElementsByTagName('p')
+        let listaClase=[].slice.call(p[0].classList)
+        listaClase.map(c=>{
+            if(c.substr(0,3)=='idx'){
+                console.log('E index',c.split(':')[1])
+            }
+        })
       //  console.log('Experimenete.....',data,sloturi)
   };
 
