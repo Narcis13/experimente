@@ -32,6 +32,20 @@ function parse(s){
     return identifiers
 }
 
+function evaluate(expr,r){
+   
+    if(expr.substr(0,1)>='0' && expr.substr(0,1)<='9'){
+          return parseInt(expr)
+    }
+    else {
+       // console.log('identificator')
+        let pieces=expr.split(".")
+        if(pieces[0]=='request'&&r.length>0&&r[0]!=='') return r[1]
+        // aici se va dezvolta...
+    }
+    return 0;
+}
+
 function replaceAtWith(original,index,len,newtext){
     var first_part= original.substr(0,index-1)
     var rest=original.substr(index+len+1,original.length-index-len-1)
@@ -68,6 +82,14 @@ window.onload = function() {
                 if(data[dataslot]){
                     if(Array.isArray(data[dataslot])){
                        // console.log('Avem de a face cu un array')
+                       let listaClase=[].slice.call(slot.classList)
+                       listaClase.map(c=>{
+                           if(c.substr(0,3)=='idx'){
+                               let index=parseInt(evaluate(c.split(':')[1],request))
+                               console.log(index)
+                           }
+                       })
+                        //aici TREBUIE SA M AI UMBLU
                         let repeated_html=""
                         data[dataslot].map(item=>{
                             repeated_html+=interpolate(item,slot.outerHTML)
@@ -84,12 +106,13 @@ window.onload = function() {
             }
         })
         let p = document.getElementsByTagName('p')
-        let listaClase=[].slice.call(p[0].classList)
+       /* let listaClase=[].slice.call(p[0].classList)
         listaClase.map(c=>{
             if(c.substr(0,3)=='idx'){
-                console.log('E index',c.split(':')[1])
+                let index=parseInt(evaluate(c.split(':')[1],request))
+                console.log(index)
             }
-        })
+        })*/
       //  console.log('Experimenete.....',data,sloturi)
   };
 
