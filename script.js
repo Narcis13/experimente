@@ -77,9 +77,11 @@ window.onload = function() {
         let sloturi= [].slice.call(document.getElementsByClassName('loop'))
         sloturi.map(slot=>{
             let slotid=slot.id
+            let dataset=[]
             if(slotid.substr(0,4)=='data'){
                 let dataslot=slotid.split('-')[1]
                 if(data[dataslot]){
+                    dataset=data[dataslot]
                     if(Array.isArray(data[dataslot])){
                        // console.log('Avem de a face cu un array')
                        let listaClase=[].slice.call(slot.classList)
@@ -87,18 +89,20 @@ window.onload = function() {
                            if(c.substr(0,3)=='idx'){
                                let index=parseInt(evaluate(c.split(':')[1],request))
                                console.log(index)
+                               dataset=[]
+                               dataset.push(data[dataslot][index])
                            }
                        })
                         //aici TREBUIE SA M AI UMBLU
                         let repeated_html=""
-                        data[dataslot].map(item=>{
+                       /*data[dataslot]*/dataset.map(item=>{
                             repeated_html+=interpolate(item,slot.outerHTML)
                         })
                         slot.outerHTML=repeated_html
                     }
                     else
                     {
-                        slot.outerHTML=interpolate(data[dataslot],slot.outerHTML)
+                        slot.outerHTML=interpolate(/*data[dataslot]*/dataset,slot.outerHTML)
                     }
                    
                    // console.log('Am cuplat template ',slot_html,' cu ',data_slot)
