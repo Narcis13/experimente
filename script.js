@@ -69,54 +69,52 @@ function interpolate(dataForSlot,html){
     return slot_html
 }
 
+function combine(data,request=['']){
+   
+    let sloturi= [].slice.call(document.getElementsByClassName('loop'))
+    sloturi.map(slot=>{
+        let slotid=slot.id
+        let dataset=[]
+        if(slotid.substr(0,4)=='data'){
+            let dataslot=slotid.split('-')[1]
+            if(data[dataslot]){
+                dataset=data[dataslot]
+                if(Array.isArray(data[dataslot])){
+                  
+                   let listaClase=[].slice.call(slot.classList)
+                   listaClase.map(c=>{
+                       if(c.substr(0,3)=='idx'){
+                           let index=parseInt(evaluate(c.split(':')[1],request))
+                           console.log(index)
+                           dataset=[]
+                           dataset.push(data[dataslot][index])
+                       }
+                   })
+                    
+                    let repeated_html=""
+                   dataset.map(item=>{
+                        repeated_html+=item.hide?'':interpolate(item,slot.outerHTML)
+                    })
+                    slot.outerHTML=repeated_html
+                }
+                else
+                {
+                    slot.outerHTML=dataset.hide? '':interpolate(dataset,slot.outerHTML)
+                }
+               
+               
+            }
+        }
+    })
+}
+
+
 window.onload = function() {
         let request=  document.location.search.split('=')
         if (request.length>0) request[0]=request[0].substring(1)
-        console.log('loading...',request)
-        //logic
-        let sloturi= [].slice.call(document.getElementsByClassName('loop'))
-        sloturi.map(slot=>{
-            let slotid=slot.id
-            let dataset=[]
-            if(slotid.substr(0,4)=='data'){
-                let dataslot=slotid.split('-')[1]
-                if(data[dataslot]){
-                    dataset=data[dataslot]
-                    if(Array.isArray(data[dataslot])){
-                       // console.log('Avem de a face cu un array')
-                       let listaClase=[].slice.call(slot.classList)
-                       listaClase.map(c=>{
-                           if(c.substr(0,3)=='idx'){
-                               let index=parseInt(evaluate(c.split(':')[1],request))
-                               console.log(index)
-                               dataset=[]
-                               dataset.push(data[dataslot][index])
-                           }
-                       })
-                        //aici TREBUIE SA M AI UMBLU
-                        let repeated_html=""
-                       /*data[dataslot]*/dataset.map(item=>{
-                            repeated_html+=item.hide?'':interpolate(item,slot.outerHTML)
-                        })
-                        slot.outerHTML=repeated_html
-                    }
-                    else
-                    {
-                        slot.outerHTML=dataset.hide? '':interpolate(/*data[dataslot]*/dataset,slot.outerHTML)
-                    }
-                   
-                   // console.log('Am cuplat template ',slot_html,' cu ',data_slot)
-                }
-            }
-        })
-        let p = document.getElementsByTagName('p')
-       /* let listaClase=[].slice.call(p[0].classList)
-        listaClase.map(c=>{
-            if(c.substr(0,3)=='idx'){
-                let index=parseInt(evaluate(c.split(':')[1],request))
-                console.log(index)
-            }
-        })*/
-      //  console.log('Experimenete.....',data,sloturi)
+      
+        combine(data,request)
+    
+  
   };
 
