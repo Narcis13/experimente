@@ -96,13 +96,13 @@ window.onload = function() {
                         //aici TREBUIE SA M AI UMBLU
                         let repeated_html=""
                        /*data[dataslot]*/dataset.map(item=>{
-                            repeated_html+=interpolate(item,slot.outerHTML)
+                            repeated_html+=item.hide?'':interpolate(item,slot.outerHTML)
                         })
                         slot.outerHTML=repeated_html
                     }
                     else
                     {
-                        slot.outerHTML=interpolate(/*data[dataslot]*/dataset,slot.outerHTML)
+                        slot.outerHTML=dataset.hide? '':interpolate(/*data[dataslot]*/dataset,slot.outerHTML)
                     }
                    
                    // console.log('Am cuplat template ',slot_html,' cu ',data_slot)
