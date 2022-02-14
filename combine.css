@@ -1,20 +1,14 @@
 * {
-    margin: 0;
+  
     box-sizing: border-box;
-    padding: 0;
+  margin:0;
     text-decoration: none;
 }
 
-* {
-    box-sizing: border-box;
-  }
-  
-  .row::after {
-    content: "";
-    clear: both;
-    display: table;
-  }
-  
+
+
+
+
   [class*="col-"] {
     float: left;
     padding: 15px;
@@ -23,13 +17,59 @@
   html {
     font-family: "Lucida Sans", sans-serif;
   }
-  
-  .header {
-    background-color: #9933cc;
-    color: #ffffff;
-    padding: 15px;
+  .row {
+    border: solid 1px red;
   }
+
+  .menu{
+    border: solid 1px black;
+  }
+.whole {
+     width: 1024px;
+     display:flex;
+     margin:0 auto;
+     
+  }
+
+  .header {
+
+    position:fixed;
+    z-index: 1;
   
+  }
+.header .container {
+  position :relative;
+  background-color: #9933cc;
+  color: #ffffff;
+  width:1024px;
+  padding: 1rem;
+  margin:0 auto;
+  
+
+  
+ 
+
+}
+
+  .inner-menu {
+    position: relative;
+     
+     top:62px;
+     width: 220px;
+  }
+
+  .editor {
+    position: fixed;
+   
+  }
+  .value-editor {
+    position: relative;
+    top:62px;
+    left:260px;
+   right:0px;
+   width:764px;
+  }
+
   .menu ul {
     list-style-type: none;
     margin: 0;
@@ -39,6 +79,7 @@
   .menu li {
     padding: 8px;
     margin-bottom: 7px;
+    cursor:pointer;
     background-color: #33b5e5;
     color: #ffffff;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
@@ -65,13 +106,20 @@
     padding: 15px;
   }
   
-  /* For mobile phones: */
+
   [class*="col-"] {
     width: 100%;
+
   }
-  
+
+  @media only screen and (max-width: 600px) {
+  .editor {
+    display:none;
+  }
+}
   @media only screen and (min-width: 600px) {
     /* For tablets: */
+
     .col-s-1 {width: 8.33%;}
     .col-s-2 {width: 16.66%;}
     .col-s-3 {width: 25%;}
