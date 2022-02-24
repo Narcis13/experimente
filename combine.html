@@ -21,8 +21,8 @@
     <div class="row">
       <div class="col-3  menu ">
         <div class="inner-menu">
-          <ul>
-            <li class="loop" id="data-metadata">{keyname}</li>
+          <ul id="keys">
+            <li key="{keyname}" class="loop" id="data-metadata">{keyname}</li>
           </ul>
         </div>
 
@@ -30,8 +30,12 @@
     
       <div class="editor col-9 col-s-12">
         <div class="value-editor">
-          <h1>The City</h1>
-          <p>Chania is the capital of the Chania region on the island of Crete. The city can be divided in two parts, the old town and the modern city.</p>
+          <form action="/action_page.php">
+            <label for="w3review">Review of W3Schools:</label>
+            <textarea id="w3review" name="w3review" rows="4" cols="50">Completati...</textarea>
+              <br><br>
+              <input type="submit" value="Submit">
+            </form>
         </div>
         
       </div>

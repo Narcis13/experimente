@@ -17,13 +17,7 @@
   html {
     font-family: "poppins", sans-serif;
   }
-  .row {
-    border: solid 1px red;
-  }
 
-  .menu{
-    border: solid 1px black;
-  }
 .whole {
      width: 1024px;
      display:flex;
@@ -60,16 +54,21 @@
 
   .editor {
     position: fixed;
+    left:400px;
+    max-width:800px;
    
   }
   .value-editor {
     position: relative;
     top:62px;
-    left:260px;
+    left:0px;
    right:0px;
    width:764px;
   }
-
+.value-editor label {
+  display: block;
+  margin-bottom: 12px;
+}
   .menu ul {
     list-style-type: none;
     margin: 0;
