@@ -1,5 +1,16 @@
 
 _id()
+
+/*var textToSave = 'this is a test';
+
+var hiddenElement = document.createElement('a');
+
+hiddenElement.href = 'data:attachment/text,' + encodeURI(textToSave);
+hiddenElement.target = '_blank';
+hiddenElement.download = 'myFile.txt';
+hiddenElement.click();*/
+
+
 const keys = Object.keys(data)
 let meta=[]
 
@@ -18,7 +29,7 @@ var label = document.getElementsByTagName('label')
 var edit=document.getElementById('w3review')
 console.log(edit)
 ul.addEventListener('click', function(e) {
- //console.log(e.target.attributes[0].nodeValue)
+//console.log(e.target.attributes[0].nodeValue)
     if (e.target.tagName === 'LI'){
         label[0].innerHTML = e.target.attributes[0].nodeValue;
         edit.value = JSON.stringify(data[e.target.attributes[0].nodeValue])
